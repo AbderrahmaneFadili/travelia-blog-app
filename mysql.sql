@@ -15,6 +15,9 @@
 -- SELECT * FROM post_likes;
 -- SELECT * FROM post_comments;
 -- SELECT * FROM post_comment_replies;
+-- SELECT * FROM users;
+
+-- DELETE from users where id = 2; 
 
 
 
