@@ -36,6 +36,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //create post
     Route::post('/posts', [PostController::class, 'store']);
 
+    //Update post
+    Route::put('/posts/{id}', [PostController::class, 'update']);
+
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);
 

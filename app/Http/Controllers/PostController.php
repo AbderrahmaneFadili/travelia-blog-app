@@ -21,6 +21,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+        //validate post data
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required|max:500',
@@ -29,12 +30,37 @@ class PostController extends Controller
             'user_id' => 'required'
         ]);
 
-        return Post::create([
+        //create the post & return as json
+        return $request->user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
             'image_path' => $request->image_path,
             'category_id' => $request->category,
-            'user_id' => $request->user_id
+            'user_id' => $request->user()->id,
+        ]);
+    }
+
+    /**
+     * Update a post
+     */
+    public function update(Request $request, $id)
+    {
+        //find post by id
+        $post = Post::find($id);
+
+        //validate post data
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required|max:500',
+            'image_path' => 'required',
+            'category' => 'required',
+        ]);
+
+        return $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image_path' => $request->image_path,
+            'category' => $request->category,
         ]);
     }
 }
