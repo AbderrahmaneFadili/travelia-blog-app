@@ -3,10 +3,12 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostCommentController;
+use App\Http\Controllers\PostCommentReplyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UploadImageController;
 use App\Models\PostComment;
+use App\Models\PostCommentReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,12 +63,19 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('posts/comment/{commentId}', [PostCommentController::class, 'destroy']);
 
     //Get all comments by post
-    Route::get('posts/comments/{postId}', [PostCommentController::class, 'allPostComments']);
+    Route::get('comments/{postId}', [PostCommentController::class, 'allPostComments']);
 
     //Update Post Comment 
     Route::put('posts/comment/{commentId}', [PostCommentController::class, 'update']);
 
-
+    //Add post reply
+    Route::post('comments/reply/{commentId}', [PostCommentReplyController::class, 'store']);
+    //Delete post reply
+    Route::delete('comments/reply/{replyId}', [PostCommentReplyController::class, 'destroy']);
+    //Update post reply
+    Route::put('comments/reply/{replyId}', [PostCommentReplyController::class, 'update']);
+    //Replies by comment
+    Route::get('replies/{commentId}', [PostCommentReplyController::class, 'repliesByComment']);
 
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);

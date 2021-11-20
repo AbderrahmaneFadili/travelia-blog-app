@@ -14,4 +14,10 @@ class PostComment extends Model
         "post_id",
         'body',
     ];
+
+    //one comment can have multiple replies
+    public function replies()
+    {
+        return $this->hasMany(PostCommentReply::class);
+    }
 }
