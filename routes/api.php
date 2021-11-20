@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //Update post
     Route::put('/posts/{id}', [PostController::class, 'update']);
 
+    //Delete post
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);
 

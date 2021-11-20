@@ -56,11 +56,21 @@ class PostController extends Controller
             'category' => 'required',
         ]);
 
+        //update post
         return $post->update([
             'title' => $request->title,
             'body' => $request->body,
             'image_path' => $request->image_path,
             'category' => $request->category,
         ]);
+    }
+
+    /**
+     *  Delete post
+     */
+    public function destroy($id)
+    {
+        $post = Post::find($id);
+        return $post->delete();
     }
 }
