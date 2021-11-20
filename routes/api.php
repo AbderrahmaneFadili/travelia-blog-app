@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UploadImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 //register route
 Route::post('/register', [AuthController::class, 'register']);
 //login route
+////// Auther Routes
 Route::post('/login', [AuthController::class, 'login']);
 //get all categories
 Route::get('/categories', [CategoryController::class, 'index']);
@@ -41,6 +43,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Delete post
     Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+
+    //Create post like
+    Route::post('likes/{postId}', [PostLikeController::class, 'store']);
+
+    //Delete post like
+    Route::delete('likes/{likeId}', [PostLikeController::class, 'destroy']);
 
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);

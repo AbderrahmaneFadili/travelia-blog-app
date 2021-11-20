@@ -16,4 +16,10 @@ class Post extends Model
         'category_id',
         'user_id'
     ];
+
+    //One post can have multiple likes
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class);
+    }
 }
