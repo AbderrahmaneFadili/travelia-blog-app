@@ -73,7 +73,6 @@ class AuthController extends Controller
 
         return [
             'message' => 'logout',
-            'user' => $request->user()
         ];
     }
 }

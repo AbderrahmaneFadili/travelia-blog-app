@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UploadImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,17 +24,20 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 //login route
 Route::post('/login', [AuthController::class, 'login']);
+//get all categories
+Route::get('/categories', [CategoryController::class, 'index']);
+//get all posts
+Route::get('/posts', [PostController::class, 'index']);
 
 
 //protected routes
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
-    //get all categories
-    Route::get('/categories', [CategoryController::class, 'index']);
-    //get all posts
-    Route::get('/posts', [PostController::class, 'index']);
     //create post
     Route::post('/posts', [PostController::class, 'store']);
+
+    //Upload image for a post
+    Route::post('/posts/upload/image', [UploadImageController::class, 'store']);
 
     //logout route
     Route::post('/logout', [AuthController::class, 'logout']);

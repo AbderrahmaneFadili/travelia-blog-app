@@ -17,7 +17,7 @@
 -- SELECT * FROM post_comment_replies;
 -- SELECT * FROM users;
 
--- DELETE from users where id = 2; 
+
 
 
 

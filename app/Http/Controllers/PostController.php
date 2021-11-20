@@ -26,6 +26,7 @@ class PostController extends Controller
             'body' => 'required|max:500',
             'image_path' => 'required',
             'category' => 'required',
+            'user_id' => 'required'
         ]);
 
         return Post::create([
