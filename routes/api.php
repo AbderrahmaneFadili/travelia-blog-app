@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UploadImageController;
+use App\Models\PostComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +51,22 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Delete post like
     Route::delete('likes/{likeId}', [PostLikeController::class, 'destroy']);
+
+    //Likes Count 
+    Route::get('likes/{postId}', [PostLikeController::class, 'likesCount']);
+
+    //Add Post Comment 
+    Route::post('posts/comment/{postId}', [PostCommentController::class, 'store']);
+    //delete Post Comment 
+    Route::delete('posts/comment/{commentId}', [PostCommentController::class, 'destroy']);
+
+    //Get all comments by post
+    Route::get('posts/comments/{postId}', [PostCommentController::class, 'allPostComments']);
+
+    //Update Post Comment 
+    Route::put('posts/comment/{commentId}', [PostCommentController::class, 'update']);
+
+
 
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);

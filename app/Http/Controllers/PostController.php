@@ -57,12 +57,16 @@ class PostController extends Controller
         ]);
 
         //update post
-        return $post->update([
+        $result =  $post->update([
             'title' => $request->title,
             'body' => $request->body,
             'image_path' => $request->image_path,
             'category' => $request->category,
         ]);
+
+        return [
+            "message" => $result > 0 ? "Post Updated" : "Post Not Updated",
+        ];
     }
 
     /**

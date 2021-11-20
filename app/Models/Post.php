@@ -22,4 +22,10 @@ class Post extends Model
     {
         return $this->hasMany(PostLike::class);
     }
+
+    //One post can have multiple comments
+    public function comments()
+    {
+        return $this->hasMany(PostComment::class);
+    }
 }
