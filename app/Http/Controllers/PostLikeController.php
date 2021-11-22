@@ -10,9 +10,9 @@ class PostLikeController extends Controller
 {
 
     //get likes Count by postId
-    public function likesCount($id)
+    public function likesCount(Request $request)
     {
-        $post = Post::find($id);
+        $post = Post::find($request->postId);
 
         $count = $post->likes()->count();
 
@@ -22,10 +22,10 @@ class PostLikeController extends Controller
     }
 
     //add like
-    public function store(Request $request, $postId)
+    public function store(Request $request)
     {
         //get post by id
-        $post = Post::find($postId);
+        $post = Post::find($request->postId);
 
         //add post like
         return  $post->likes()->create([
@@ -34,10 +34,10 @@ class PostLikeController extends Controller
     }
 
     //delete like
-    public function destroy($likeId)
+    public function destroy(Request $request)
     {
         //get the post like
-        $postLike = PostLike::find($likeId);
+        $postLike = PostLike::find($request->likeId);
 
         //delete the post like
         $postLike->delete();

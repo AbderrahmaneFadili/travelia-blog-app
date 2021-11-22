@@ -43,10 +43,10 @@ class PostController extends Controller
     /**
      * Update a post
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //find post by id
-        $post = Post::find($id);
+        $post = Post::find($request->postId);
 
         //validate post data
         $this->validate($request, [
@@ -72,9 +72,12 @@ class PostController extends Controller
     /**
      *  Delete post
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $post = Post::find($id);
-        return $post->delete();
+        $post = Post::find($request->postId);
+        $result = $post->delete();
+        return [
+            'message' => $result > 0 ? 'Post Deleted' : 'Post Not Deleted'
+        ];
     }
 }

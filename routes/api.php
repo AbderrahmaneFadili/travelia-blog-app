@@ -43,39 +43,39 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/posts', [PostController::class, 'store']);
 
     //Update post
-    Route::put('/posts/{id}', [PostController::class, 'update']);
+    Route::put('/posts', [PostController::class, 'update']);
 
     //Delete post
-    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+    Route::delete('/posts', [PostController::class, 'destroy']);
 
     //Create post like
-    Route::post('likes/{postId}', [PostLikeController::class, 'store']);
+    Route::post('likes/', [PostLikeController::class, 'store']);
 
     //Delete post like
-    Route::delete('likes/{likeId}', [PostLikeController::class, 'destroy']);
+    Route::delete('likes/', [PostLikeController::class, 'destroy']);
 
-    //Likes Count 
-    Route::get('likes/{postId}', [PostLikeController::class, 'likesCount']);
+    //Likes Count by post id
+    Route::get('likes', [PostLikeController::class, 'likesCount']);
 
     //Add Post Comment 
-    Route::post('posts/comment/{postId}', [PostCommentController::class, 'store']);
+    Route::post('posts/comment/', [PostCommentController::class, 'store']);
     //delete Post Comment 
-    Route::delete('posts/comment/{commentId}', [PostCommentController::class, 'destroy']);
+    Route::delete('posts/comment/', [PostCommentController::class, 'destroy']);
 
     //Get all comments by post
-    Route::get('comments/{postId}', [PostCommentController::class, 'allPostComments']);
+    Route::get('comments/', [PostCommentController::class, 'allPostComments']);
 
     //Update Post Comment 
-    Route::put('posts/comment/{commentId}', [PostCommentController::class, 'update']);
+    Route::put('posts/comment/', [PostCommentController::class, 'update']);
 
     //Add post reply
-    Route::post('comments/reply/{commentId}', [PostCommentReplyController::class, 'store']);
+    Route::post('comments/reply/', [PostCommentReplyController::class, 'store']);
     //Delete post reply
-    Route::delete('comments/reply/{replyId}', [PostCommentReplyController::class, 'destroy']);
+    Route::delete('comments/reply/', [PostCommentReplyController::class, 'destroy']);
     //Update post reply
-    Route::put('comments/reply/{replyId}', [PostCommentReplyController::class, 'update']);
+    Route::put('comments/reply/', [PostCommentReplyController::class, 'update']);
     //Replies by comment
-    Route::get('replies/{commentId}', [PostCommentReplyController::class, 'repliesByComment']);
+    Route::get('replies/', [PostCommentReplyController::class, 'repliesByComment']);
 
     //Upload image for a post
     Route::post('/posts/upload/image', [UploadImageController::class, 'store']);

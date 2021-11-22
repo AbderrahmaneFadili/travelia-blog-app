@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 
 class PostCommentController extends Controller
 {
-    public function store(Request $request, $postId)
+    /**
+     * Add Post Comment method
+     */
+    public function store(Request $request)
     {
         $this->validate($request, [
             'body' => 'required|max:500'
         ]);
 
-        $post = Post::find($postId);
+        $post = Post::find($request->postId);
 
         return $post->comments()->create([
             "user_id" => $request->user()->id,
@@ -22,7 +25,10 @@ class PostCommentController extends Controller
         ]);
     }
 
-    public function update(Request $request, $commentId)
+    /**
+     * Update Post Comment method
+     */
+    public function update(Request $request)
     {
         //validate comment
         $this->validate($request, [
@@ -30,7 +36,7 @@ class PostCommentController extends Controller
         ]);
 
         //get the comment
-        $comment = PostComment::find($commentId);
+        $comment = PostComment::find($request->commentId);
 
         //update comment
         $result = $comment->update([
@@ -42,10 +48,10 @@ class PostCommentController extends Controller
         ];
     }
 
-    public function destroy($commentId)
+    public function destroy(Request $request)
     {
         //get the comment
-        $comment = PostComment::find($commentId);
+        $comment = PostComment::find($request->commentId);
 
         //delete the comment
         $result = $comment->delete();
@@ -56,9 +62,9 @@ class PostCommentController extends Controller
     }
 
     //get all post comments
-    public function allPostComments($postId)
+    public function allPostComments(Request $request)
     {
-        $post = Post::find($postId);
+        $post = Post::find($request->postId);
 
         $comments = $post->comments;
 

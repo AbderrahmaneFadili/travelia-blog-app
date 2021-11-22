@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 
 class PostCommentReplyController extends Controller
 {
-    public function store(Request $request, $commentId)
+    /**
+     * Add Post Comment Reply
+     */
+    public function store(Request $request)
     {
         $this->validate($request, [
             'body' => 'required|max:400'
         ]);
 
-        $comment = PostComment::find($commentId);
+        $comment = PostComment::find($request->commentId);
 
         return $comment->replies()->create([
             "user_id" => $request->user()->id,
@@ -22,9 +25,13 @@ class PostCommentReplyController extends Controller
         ]);
     }
 
-    public function destroy($replyId)
+    /**
+     * Delete Post Comment Reply
+     */
+    public function destroy(Request $request)
     {
-        $reply = PostCommentReply::find($replyId);
+
+        $reply = PostCommentReply::find($request->replyId);
 
         $result = $reply->delete();
 
@@ -33,13 +40,13 @@ class PostCommentReplyController extends Controller
         ];
     }
 
-    public function update(Request $request, $replyId)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'body' => 'required|max:400'
         ]);
 
-        $reply = PostCommentReply::find($replyId);
+        $reply = PostCommentReply::find($request->replyId);
 
         $result =  $reply->update([
             'body' => $request->body,
@@ -50,9 +57,9 @@ class PostCommentReplyController extends Controller
         ];
     }
 
-    public function repliesByComment($commentId)
+    public function repliesByComment(Request $request)
     {
-        $comment = PostComment::find($commentId);
+        $comment = PostComment::find($request->commentId);
 
         $replies = $comment->replies;
 
