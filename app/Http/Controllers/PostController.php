@@ -10,9 +10,10 @@ class PostController extends Controller
     /**
      * get all posts
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Post::all();
+        $posts = Post::latest()->paginate($request->perPage);
+        return $posts;
     }
 
     /**
