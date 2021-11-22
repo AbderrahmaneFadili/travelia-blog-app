@@ -34,6 +34,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/categories', [CategoryController::class, 'index']);
 //get all posts
 Route::get('/posts', [PostController::class, 'index']);
+//search posts with pagination
+Route::get('/posts', [PostController::class, 'search']);
 
 
 //protected routes

@@ -81,4 +81,15 @@ class PostController extends Controller
             'message' => $result > 0 ? 'Post Deleted' : 'Post Not Deleted'
         ];
     }
+
+    /**
+     * Search posts with pagination
+     */
+    public function search(Request $request)
+    {
+
+        $posts = Post::where('title', 'like', "%" . $request->search . "%")->orWhere('title', 'like', "%" . $request->search . "%")->paginate(2);
+
+        return $posts;
+    }
 }
