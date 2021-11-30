@@ -16,7 +16,7 @@ class UploadImageController extends Controller
         ]);
 
         //create the new image name
-        $newImageName = time() . '-' . rand() . 'image' . '.' . $request->image->extension();
+        $newImageName = time() . '-' . rand() . '-image' . '.' . $request->image->extension();
         //move the image to public path
         $request->image->move(public_path('images'), $newImageName);
 

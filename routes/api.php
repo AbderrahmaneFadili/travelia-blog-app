@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 ////// public routes
 ////// Auth Routes
+
 //register route
 Route::post('/register', [AuthController::class, 'register']);
 //login route
@@ -33,7 +34,7 @@ Route::post('/login', [AuthController::class, 'login']);
 //get all categories
 Route::get('/categories', [CategoryController::class, 'index']);
 //get all posts
-Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/all', [PostController::class, 'index']);
 //search posts with pagination
 Route::get('/posts', [PostController::class, 'search']);
 

@@ -13,7 +13,10 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = Post::latest()->paginate($request->perPage);
-        return $posts;
+
+        return response()->json([
+            'posts' => $posts
+        ], 200);
     }
 
     /**

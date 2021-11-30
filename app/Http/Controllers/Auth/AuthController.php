@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -13,27 +14,33 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         //validate user data
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             "name" => 'required|string|max:255',
             'email' => 'required|string|email|unique:users|max:255',
             'password' => 'required|confirmed'
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
         //create the user data
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            "password" => $request->password
+            "password" => Hash::make($request->password)
         ]);
 
         //create token
         $token = $user->createToken('travelia-blog-token')->plainTextToken;
 
         //create the response
-        return response([
+        return response()->json([
             'user' => $user,
             'token' => $token
-        ], 201);
+        ], 200);
     }
 
     //login user
@@ -49,7 +56,7 @@ class AuthController extends Controller
         $user = User::where('email', 'like', $request->email)->first();
 
         //check if the user is not exist or the passowrds is not matched. 
-        if (!$user || Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response([
                 'message' => 'Invalid login'
             ], 401);
